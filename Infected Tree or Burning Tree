@@ -1,0 +1,66 @@
+class Solution {
+private:
+    TreeNode* createMapping(TreeNode* root,int start,map<TreeNode*,TreeNode*> &nodeToParent){
+        TreeNode* result=NULL;
+        queue<TreeNode*> q;
+        q.push(root);
+        nodeToParent[root]=NULL;
+        while(!q.empty()){
+            TreeNode* FrontNode=q.front();
+            q.pop();
+            if(FrontNode->val==start){
+                result=FrontNode;
+            }
+            if(FrontNode->left){
+                nodeToParent[FrontNode->left]=FrontNode;
+                q.push(FrontNode->left);
+            }
+            if(FrontNode->right){
+                nodeToParent[FrontNode->right]=FrontNode;
+                q.push(FrontNode->right);
+            }
+        }
+        return result;
+    }
+    int infectedTree(TreeNode* targetNode,map<TreeNode*,TreeNode*> &nodeToParent){
+        map<TreeNode*,bool> visited;
+        int ans=0;
+        queue<TreeNode*> q;
+        q.push(targetNode);
+        visited[targetNode]=true;
+        while(!q.empty()){
+            bool flag=false;
+            int size=q.size();
+            for(int i=0;i<size;i++){
+                TreeNode* Front=q.front();
+                q.pop();
+                if(Front->left && !visited[Front->left]){
+                    flag=true;
+                    visited[Front->left]=true;
+                    q.push(Front->left);
+                }
+                if(Front->right && !visited[Front->right]){
+                    flag=true;
+                    visited[Front->right]=true;
+                    q.push(Front->right);
+                }
+                if(nodeToParent[Front] && !visited[nodeToParent[Front]]){
+                    flag=true;
+                    visited[nodeToParent[Front]]=true;
+                    q.push(nodeToParent[Front]);
+                }
+            }
+            if(flag){
+                ans++;
+            }
+        }
+        return ans;
+    }
+public:
+    int amountOfTime(TreeNode* root, int start) {
+        map<TreeNode* , TreeNode*> nodeToParent;
+        TreeNode* targetNode=createMapping(root,start,nodeToParent);
+        int ans=infectedTree(targetNode,nodeToParent);
+        return ans;
+    }
+};
