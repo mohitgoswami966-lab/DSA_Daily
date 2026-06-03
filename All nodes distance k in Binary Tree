@@ -1,0 +1,60 @@
+class Solution {
+private:
+    void createMapping(TreeNode* root,
+                       map<TreeNode*, TreeNode*>& nodeToParent) {
+        queue<TreeNode*> q;
+        q.push(root);
+        nodeToParent[root] = NULL;
+        while (!q.empty()) {
+            TreeNode* Front = q.front();
+            q.pop();
+            if (Front->left) {
+                nodeToParent[Front->left] = Front;
+                q.push(Front->left);
+            }
+            if (Front->right) {
+                nodeToParent[Front->right] = Front;
+                q.push(Front->right);
+            }
+        }
+    }
+
+public:
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
+        map<TreeNode*, TreeNode*> nodeToParent;
+        createMapping(root, nodeToParent);
+        map<TreeNode*, bool> visited;
+        queue<TreeNode*> q;
+        q.push(target);
+        int distance = 0;
+        visited[target] = true;
+        while (!q.empty()) {
+            int n = q.size();
+            if (distance++ == k)
+                break;
+            for (int i = 0; i < n; i++) {
+                TreeNode* Front = q.front();
+                q.pop();
+                if (Front->left && !visited[Front->left]) {
+                    visited[Front->left] = true;
+                    q.push(Front->left);
+                }
+                if (Front->right && !visited[Front->right]) {
+                    visited[Front->right] = true;
+                    q.push(Front->right);
+                }
+                if (nodeToParent[Front] && !visited[nodeToParent[Front]]) {
+                    visited[nodeToParent[Front]] = true;
+                    q.push(nodeToParent[Front]);
+                }
+            }
+        }
+        vector<int> ans;
+        while (!q.empty()) {
+            TreeNode* Front = q.front();
+            q.pop();
+            ans.push_back(Front->val);
+        }
+        return ans;
+    }
+};
