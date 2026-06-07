@@ -1,0 +1,32 @@
+class Solution {
+  public:
+    vector<Node*> findPreSuc(Node* root, int key) {
+        Node* temp=root;
+        Node* pre=NULL;
+        Node* suc=NULL;
+        while(temp){
+            if(temp->data>key){
+                suc=temp;
+                temp=temp->left;
+            }
+            else if(temp->data<key){
+                pre=temp;
+                temp=temp->right;
+            }
+            else{
+                Node* leftNode=temp->left;
+                while(leftNode){
+                    pre=leftNode;
+                    leftNode=leftNode->right;
+                }
+                Node* rightNode=temp->right;
+                while(rightNode){
+                    suc=rightNode;
+                    rightNode=rightNode->left;
+                }
+                break;
+            }
+        }
+        return {pre,suc};
+    }
+};
