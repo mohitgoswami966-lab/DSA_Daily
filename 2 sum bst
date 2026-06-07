@@ -1,0 +1,47 @@
+class Solution {
+private:
+    void inOrder(TreeNode* root,vector<int> &ans){
+        TreeNode* curr=root;
+        while(curr!=NULL){
+            if(curr->left==NULL){
+                ans.push_back(curr->val);
+                curr=curr->right;
+            }
+            else{
+                TreeNode* prev=curr->left;
+                while(prev->right && prev->right!=curr){
+                    prev=prev->right;
+                }
+                if(prev->right==NULL){
+                    prev->right=curr;
+                    curr=curr->left;
+                }
+                else{
+                    prev->right=NULL;
+                    ans.push_back(curr->val);
+                    curr=curr->right;
+                }
+            }
+        }
+    }
+public:
+    bool findTarget(TreeNode* root, int k) {
+        vector<int> inorder;
+        inOrder(root,inorder);
+        int i=0;
+        int j=inorder.size()-1;
+        while(i<j){
+            int sum=inorder[i]+inorder[j];
+            if(sum==k){
+                return true;
+            }
+            else if(sum>k){
+                j--;
+            }
+            else{
+                i++;
+            }
+        }
+        return false;
+    }
+};
