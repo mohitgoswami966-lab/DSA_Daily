@@ -1,0 +1,45 @@
+class Solution {
+private:
+    void inOrder(TreeNode* root,vector<int>& ans){
+        TreeNode* curr=root;
+        while(curr!=NULL){
+            if(curr->left==NULL){
+                ans.push_back(curr->val);
+                curr=curr->right;
+            }
+            else{
+                TreeNode* prev=curr->left;
+                while(prev->right && prev->right!=curr){
+                    prev=prev->right;
+                }
+                if(prev->right==NULL){
+                    prev->right=curr;
+                    curr=curr->left;
+                }
+                else{
+                    prev->right=NULL;
+                    ans.push_back(curr->val);
+                    curr=curr->right;
+                }
+            }
+        }
+    }
+    TreeNode* Balance(vector<int> &inorder,int s,int e){
+        if(s>e){
+            return NULL;
+        }
+        int mid=s+(e-s)/2;
+        TreeNode* temp=new TreeNode(inorder[mid]);
+        temp->right=Balance(inorder,mid+1,e);
+        temp->left=Balance(inorder,s,mid-1);
+        return temp;
+    }
+public:
+    TreeNode* balanceBST(TreeNode* root) {
+        vector<int> inorder;
+        inOrder(root,inorder);
+        int s=0;
+        int e=inorder.size()-1;
+        return Balance(inorder,s,e);
+    }
+};
