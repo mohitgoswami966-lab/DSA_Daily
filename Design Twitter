@@ -1,0 +1,66 @@
+class Twitter {
+public:
+    class Node{
+    public:
+        int time;
+        int userId;
+        int tweetId;
+        int idx;
+        Node(int time,int tweetId,int userId,int idx){
+            this->time=time;
+            this->userId=userId;
+            this->tweetId=tweetId;
+            this->idx=idx;
+        }
+    };
+    class compare{
+    public:
+        bool operator()(Node* a,Node* b){
+            return a->time<b->time;
+        }
+    };
+    int timer;
+    unordered_map<int,vector<pair<int,int>>> tweets;
+    unordered_map<int,unordered_set<int>> following;
+    Twitter() {
+        timer=0;
+    }
+    
+    void postTweet(int userId, int tweetId) {
+        tweets[userId].push_back({timer++,tweetId});
+    }
+    
+    vector<int> getNewsFeed(int userId) {
+        priority_queue<Node*,vector<Node*>,compare> pq;
+        following[userId].insert(userId);
+        for (auto user : following[userId]) {
+            if (tweets[user].empty())
+                continue;
+            int idx = tweets[user].size() - 1;
+            pq.push(new Node(tweets[user][idx].first,tweets[user][idx].second,user,idx));
+        }
+        vector<int> ans;
+        while (!pq.empty() && ans.size() < 10) {
+            Node* top = pq.top();
+            pq.pop();
+            ans.push_back(top->tweetId);
+            int user = top->userId;
+            int idx = top->idx;
+            if (idx > 0) {
+                pq.push(new Node(tweets[user][idx - 1].first,tweets[user][idx - 1].second,user,idx - 1));
+            }
+        }
+        return ans;
+    }
+    
+    void follow(int followerId, int followeeId) {
+        following[followerId].insert(followeeId);
+    }
+    
+    void unfollow(int followerId, int followeeId) {
+        if(followerId != followeeId){
+            following[followerId].erase(followeeId);
+        }
+        
+    }
+};
