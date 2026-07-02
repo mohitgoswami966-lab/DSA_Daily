@@ -1,0 +1,50 @@
+class TrieNode{
+public:
+    TrieNode* child[26];
+    bool isTerminal;
+    TrieNode(){
+        isTerminal=false;
+        for(int i=0;i<26;i++){
+            child[i]=NULL;
+        }
+    }
+};
+class Solution {
+private:
+    TrieNode* root=new TrieNode();
+    
+    void insert(string &s){
+        TrieNode* curr=root;
+        for(auto c:s){
+            int i=c-'a';
+            if(curr->child[i]==NULL){
+                curr->child[i]=new TrieNode();
+            }
+            curr=curr->child[i];
+        }
+        curr->isTerminal=true;
+    }
+    
+    bool check(string &s){
+        TrieNode* curr=root;
+        for(auto c:s){
+            curr=curr->child[c-'a'];
+            if(curr==NULL || !curr->isTerminal) return false;
+        }
+        return true;
+    }
+public:    
+    string longestValidWord(vector<string>& words) {
+        for(auto c:words){
+            insert(c);
+        }
+        string ans="";
+        for(auto c: words){
+            if(check(c)){
+                if(c.size()>ans.size()) ans=c;
+                else if(c.size()==ans.size() && c<ans) ans=c;
+            }
+        }
+        return ans;
+    }
+};
