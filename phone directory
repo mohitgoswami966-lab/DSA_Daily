@@ -1,0 +1,72 @@
+class Solution {
+  class TrieNode{
+    public:
+      TrieNode* children[26];
+      bool isTerminal;
+      TrieNode(){
+          isTerminal=false;
+          for(int i=0;i<26;i++){
+              children[i]=NULL;
+          }
+      }
+  };
+  public:
+    TrieNode* root=new TrieNode();
+    
+    void insert(string& s){
+        TrieNode* node=root;
+        for(auto c:s){
+            int index=c-'a';
+            if(node->children[index]==NULL){
+                node->children[index]=new TrieNode();
+            }
+            node=node->children[index];
+        }
+        node->isTerminal=true;
+    }
+    
+    void dfs(TrieNode* node,string &temp,vector<string> &res){
+        if(node->isTerminal){
+            res.push_back(temp);
+        }
+        for(int i=0;i<26;i++){
+            if(node->children[i]){
+                temp.push_back('a'+i);
+                dfs(node->children[i],temp,res);
+                temp.pop_back();
+            }
+        }
+    }
+    
+    vector<vector<string>> displayContacts(int n, string contact[], string s) {
+        set<string> st;
+        
+        for(int i=0;i<n;i++){
+            st.insert(contact[i]);
+        }
+        
+        for(auto &a:st){
+            insert((string&)a);
+        }
+        
+        vector<vector<string>> ans;
+        TrieNode* curr=root;
+        string prefix="";
+        
+        for(char c:s){
+            prefix.push_back(c);
+            if(curr && curr->children[c-'a']){
+                curr=curr->children[c-'a'];
+                vector<string> tempAns;
+                string temp=prefix;
+                dfs(curr,temp,tempAns);
+                ans.push_back(tempAns);
+            }
+            else{
+                curr=NULL;
+                ans.push_back({"0"});
+            }
+        }
+        return ans;
+    }
+};
