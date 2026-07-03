@@ -1,0 +1,34 @@
+class Solution {
+private:
+    void solve(int col,vector<vector<string>> &ans,vector<string> &board,int n,vector<int> &leftRow,vector<int> &leftDiagonal,vector<int> &rightDiagonal){
+        if(col==n){
+            ans.push_back(board);
+            return;
+        }
+        for(int row=0;row<n;row++){
+            if(leftRow[row]==0 && leftDiagonal[row+col]==0 && rightDiagonal[(n-1)+(col-row)]==0){
+                board[row][col]='Q';
+                leftRow[row]=1 ;
+                leftDiagonal[row+col]=1; 
+                rightDiagonal[(n-1)+(col-row)]=1;
+                solve(col+1,ans,board,n,leftRow,leftDiagonal,rightDiagonal);
+                board[row][col]='.';
+                leftRow[row]=0;
+                leftDiagonal[row+col]=0; 
+                rightDiagonal[(n-1)+(col-row)]=0;
+            }
+        }
+    }
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> ans;
+        vector<string> board(n);
+        string s(n,'.');
+        for(int i=0;i<n;i++){
+            board[i]=s;
+        }
+        vector<int> leftRow(n,0),leftDiagonal(2*n-1,0),rightDiagonal(2*n-1,0);
+        solve(0,ans,board,n,leftRow,leftDiagonal,rightDiagonal);
+        return ans;
+    }
+};
