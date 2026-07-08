@@ -1,0 +1,40 @@
+class Solution {
+  private:
+    bool solve(vector<vector<int>> &adj,unordered_map<int,bool> &visited,int node,int parent){
+        visited[node]=true;
+        for(int i:adj[node]){
+            if(!visited[i]){
+                bool isCyclic=solve(adj,visited,i,node);
+                if(isCyclic){
+                    return true;
+                }
+            }
+            else if(i!=parent){
+                return true;
+            }
+        }
+        return false;
+    }
+  public:
+    bool isCycle(int V, vector<vector<int>>& edges) {
+        vector<vector<int>> adj(V);
+        int n=edges.size();
+        for(int i=0;i<n;i++){
+            int u=edges[i][0];
+            int v=edges[i][1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        int m=adj.size();
+        unordered_map<int,bool> visited;
+        for(int i=0;i<m;i++){
+            if(!visited[i]){
+                bool ans=solve(adj,visited,i,-1);
+                if(ans){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+};
