@@ -1,0 +1,54 @@
+class Solution {
+  private:
+    void dfs(int node,int &timer,int parent,vector<int> &disc,vector<int> &low,
+    vector<vector<int>> &adj,vector<bool> &visited,vector<vector<int>> &result){
+        visited[node]=true;
+        disc[node]=low[node]= timer++;
+        for(auto i:adj[node]){
+            if(i==parent) continue;
+            else if(!visited[i]){
+                dfs(i,timer,node,disc,low,adj,visited,result);
+                low[node]=min(low[node],low[i]);
+                if(low[i]>disc[node]){
+                    vector<int> ans;
+                    ans.push_back(node);
+                    ans.push_back(i);
+                    result.push_back(ans);
+                }
+            }
+            else{
+                low[node]=min(low[node],disc[i]);
+            }
+        }
+    }
+  public:
+    bool isBridge(int V, vector<vector<int>> &edges, int c, int d) {
+        vector<vector<int>> adj(V);
+        for(int i=0;i<edges.size();i++){
+            int u=edges[i][0];
+            int v=edges[i][1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        
+        vector<vector<int>> result;
+        vector<bool> visited(V,false);
+        vector<int> disc(V,-1);
+        vector<int> low(V,-1);
+        int timer=0;
+        int parent=-1;
+        
+        for(int i=0;i<V;i++){
+            if(!visited[i]){
+                dfs(i,timer,parent,disc,low,adj,visited,result);
+            }
+        }
+        
+        for(auto &edge : result){
+            if((edge[0] == c && edge[1] == d) ||(edge[0] == d && edge[1] == c)){
+                return true;
+            }
+        }
+        return false;
+    }
+};
