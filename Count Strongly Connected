@@ -1,0 +1,55 @@
+class Solution {
+  private:
+  void dfs(int node,vector<bool> &visited,vector<vector<int>> &transpose){
+      visited[node]=true;
+      for(auto i:transpose[node]){
+          if(!visited[i]){
+              dfs(i,visited,transpose);
+          }
+      }
+  }
+  void dfs1(int node,vector<bool> &visited,vector<vector<int>> &adj,stack<int> &s){
+      visited[node]=true;
+      for(auto i:adj[node]){
+          if(!visited[i]){
+              dfs1(i,visited,adj,s);
+          }
+      }
+      s.push(node);
+  }
+  public:
+    int kosaraju(int V, vector<vector<int>> &edges) {
+        vector<vector<int>> adj(V);
+        for(int i=0;i<edges.size();i++){
+            int u=edges[i][0];
+            int v=edges[i][1];
+            adj[u].push_back(v);
+        }
+        
+        stack<int> s;
+        vector<bool> visited(V,false);
+        for(int i=0;i<V;i++){
+            if(!visited[i]){
+                dfs1(i,visited,adj,s);
+            }
+        }
+        
+        vector<vector<int>> transpose(V);
+        for(int i=0;i<V;i++){
+            for(auto j:adj[i]){
+                transpose[j].push_back(i);
+            }
+        }
+        for(int i=0;i<V;i++) visited[i]=false;
+        int ans=0;
+        for(int i=0;i<V;i++){
+            int node=s.top();
+            s.pop();
+            if(!visited[node]){
+                ans++;
+                dfs(node,visited,transpose);
+            }
+        }
+        return ans;
+    }
+};
