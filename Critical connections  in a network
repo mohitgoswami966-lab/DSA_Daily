@@ -1,0 +1,49 @@
+class Solution {
+private:
+    void dfs(int node,int &timer,int parent,vector<int> &disc,vector<int> &low,
+    vector<vector<int>> &adj,vector<bool> &visited,vector<vector<int>> &result){
+        visited[node]=true;
+        disc[node]=low[node]= timer++;
+        for(auto i:adj[node]){
+            if(i==parent) continue;
+            else if(!visited[i]){
+                dfs(i,timer,node,disc,low,adj,visited,result);
+                low[node]=min(low[node],low[i]);
+                if(low[i]>disc[node]){
+                    vector<int> ans;
+                    ans.push_back(node);
+                    ans.push_back(i);
+                    result.push_back(ans);
+                }
+            }
+            else{
+                low[node]=min(low[node],disc[i]);
+            }
+        }
+    }
+public:
+    vector<vector<int>> criticalConnections(int n, vector<vector<int>>& connections) {
+        vector<vector<int>> adj(n);
+        for(int i=0;i<connections.size();i++){
+            int u=connections[i][0];
+            int v=connections[i][1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        
+        vector<vector<int>> result;
+        vector<bool> visited(n,false);
+        vector<int> disc(n,-1);
+        vector<int> low(n,-1);
+        int timer=0;
+        int parent=-1;
+        
+        for(int i=0;i<n;i++){
+            if(!visited[i]){
+                dfs(i,timer,parent,disc,low,adj,visited,result);
+            }
+        }
+
+        return result;
+    }
+};
