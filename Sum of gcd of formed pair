@@ -1,0 +1,32 @@
+class Solution {
+private:
+    int gcd(int first,int second){
+        while(second){
+            int rem=first%second;
+            first=second;
+            second=rem;
+        }
+        return first;
+    }
+public:
+    long long gcdSum(vector<int>& nums) {
+        long long ans=0;
+        vector<int> prefixGcd;
+        int mx=0;
+        for(int i=0;i<nums.size();i++){
+            mx=max(mx,nums[i]);
+            int a=gcd(nums[i],mx);
+            prefixGcd.push_back(a);
+        }
+        int i=0;
+        int j=prefixGcd.size()-1;
+        sort(prefixGcd.begin(),prefixGcd.end());
+        while(i<j){
+            int b=gcd(prefixGcd[i],prefixGcd[j]);
+            ans += b;
+            i++;
+            j--;
+        } 
+        return ans;
+    }
+};
