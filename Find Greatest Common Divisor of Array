@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int gcd(int first,int second){
+        while(second){
+            int rem=first%second;
+            first=second;
+            second=rem;
+        }
+        return first;
+    }
+    int findGCD(vector<int>& nums) {
+        int mini=INT_MAX;
+        int maxi=INT_MIN;
+        for(int i=0;i<nums.size();i++){
+            mini=min(mini,nums[i]);
+            maxi=max(maxi,nums[i]);
+        }
+        int ans=gcd(maxi,mini);
+        return ans;
+    }
+};
