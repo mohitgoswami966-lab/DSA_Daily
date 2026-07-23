@@ -11,10 +11,10 @@
  */
 class Solution {
 private:
-    TreeNode* minVal(TreeNode* root){
+    TreeNode* maxVal(TreeNode* root){
         TreeNode* temp=root;
-        while(temp->left!=NULL){
-            temp=temp->left;
+        while(temp->right!=NULL){
+            temp=temp->right;
         }
         return temp;
     }
@@ -37,9 +37,9 @@ public:
                 return temp;
             }
             if(root->left!=NULL && root->right!=NULL){
-                int mini=minVal(root->right)->val;
-                root->val=mini;
-                root->right=deleteNode(root->right,mini);
+                int maxi=maxVal(root->left)->val;
+                root->val=maxi;
+                root->left=deleteNode(root->left,maxi);
                 return root;
             }
         }
