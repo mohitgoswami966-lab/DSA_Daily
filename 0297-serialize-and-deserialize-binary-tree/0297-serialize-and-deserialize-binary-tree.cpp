@@ -10,9 +10,10 @@
 class Codec {
 public:
 
+    // Encodes a tree to a single string.
     string serialize(TreeNode* root) {
         if(root==NULL) return "";
-        string s="";
+        string s;
         queue<TreeNode*> q;
         q.push(root);
         while(!q.empty()){
@@ -32,10 +33,11 @@ public:
         return s;
     }
 
+    // Decodes your encoded data to tree.
     TreeNode* deserialize(string data) {
         if(data.size()==0) return NULL;
-        stringstream s(data);
         string str;
+        stringstream s(data);
         getline(s,str,',');
         TreeNode* root=new TreeNode(stoi(str));
         queue<TreeNode*> q;
