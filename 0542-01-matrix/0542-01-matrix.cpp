@@ -4,8 +4,8 @@ public:
         int n=mat.size();
         int m=mat[0].size();
         queue<pair<pair<int,int>,int>> q;
-        vector<vector<int>> visited(n,vector<int> (m,0));
-        vector<vector<int>> dist(n,vector<int> (m,0));
+        vector<vector<int>> visited(n,vector<int>(m,0));
+        vector<vector<int>> dist(n,vector<int>(m,0));
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(mat[i][j]==0){
@@ -23,14 +23,14 @@ public:
             int r=q.front().first.first;
             int c=q.front().first.second;
             int d=q.front().second;
-            dist[r][c]=d;
             q.pop();
+            dist[r][c]=d;
             for(int i=0;i<4;i++){
                 int nrow=r+aRow[i];
                 int ncol=c+aCol[i];
                 if((nrow>=0 && nrow<n) && (ncol>=0 && ncol<m) && !visited[nrow][ncol]){
-                    visited[nrow][ncol]=1;
                     q.push({{nrow,ncol},d+1});
+                    visited[nrow][ncol]=1;
                 }
             }
         }
