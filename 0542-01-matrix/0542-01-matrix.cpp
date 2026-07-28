@@ -28,7 +28,7 @@ public:
             for(int i=0;i<4;i++){
                 int nrow=r+aRow[i];
                 int ncol=c+aCol[i];
-                if((nrow>=0 && nrow<n) && (ncol>=0 && ncol<m) && !visited[nrow][ncol]){
+                if((nrow>=0 && nrow<n)&&(ncol>=0 && ncol<m)&& !visited[nrow][ncol]){
                     q.push({{nrow,ncol},d+1});
                     visited[nrow][ncol]=1;
                 }
