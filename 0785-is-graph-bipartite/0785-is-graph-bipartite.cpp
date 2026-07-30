@@ -1,12 +1,14 @@
 class Solution {
 private:
-    bool dfs(int node,int colour,vector<int> &visited,vector<vector<int>> &graph){
-        visited[node]=colour;
+    bool dfs(int node,int color,vector<int> &visited,vector<vector<int>> &graph){
+        visited[node]=color;
         for(auto i:graph[node]){
             if(visited[i]==-1){
-                if(dfs(i,!colour,visited,graph)==false) return false;
+                if(dfs(i,!color,visited,graph)==false) return false;
             }
-            else if(visited[i]==colour) return false;
+            else if(visited[i]==color){
+                return false;
+            }
         }
         return true;
     }
