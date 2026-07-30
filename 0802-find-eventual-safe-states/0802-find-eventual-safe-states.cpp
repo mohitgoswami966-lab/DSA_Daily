@@ -25,7 +25,7 @@ public:
             int front=q.front();
             q.pop();
             ans.push_back(front);
-            for(auto i:adjRev[front]){
+            for(int i:adjRev[front]){
                 inDegree[i]--;
                 if(inDegree[i]==0){
                     q.push(i);
