@@ -8,7 +8,7 @@ public:
             int w=times[i][2];
             adj[u].push_back({v,w});
         }
-        vector<long long> dist(n+1,INT_MAX);
+        vector<int> dist(n+1,INT_MAX);
         dist[k]=0;
         priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
         pq.push({0,k});
