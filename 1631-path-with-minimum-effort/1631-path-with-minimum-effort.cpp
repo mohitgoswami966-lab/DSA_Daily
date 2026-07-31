@@ -5,10 +5,10 @@ public:
         int m=heights[0].size();
         vector<vector<int>> dist(n,vector<int>(m,INT_MAX));
         priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>> pq;
+        pq.push({0,{0,0}});
         dist[0][0]=0;
         int aRow[]={-1,0,1,0};
         int aCol[]={0,1,0,-1};
-        pq.push({0,{0,0}});
         while(!pq.empty()){
             int d=pq.top().first;
             int r=pq.top().second.first;
