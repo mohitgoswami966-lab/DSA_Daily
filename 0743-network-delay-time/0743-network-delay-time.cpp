@@ -10,7 +10,7 @@ public:
         }
         vector<long long> dist(n+1,INT_MAX);
         dist[k]=0;
-        priority_queue<pair<long long,int>,vector<pair<long long,int>>,greater<pair<long long,int>>> pq;
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
         pq.push({0,k});
         while(!pq.empty()){
             int d=pq.top().first;
