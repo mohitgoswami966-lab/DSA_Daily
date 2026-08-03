@@ -16,7 +16,7 @@ public:
                 int x=next-1;
                 int r=x/n;
                 int c=x%n;
-                int row=n-1-r;
+                int row= n-1-r;
                 if(r%2==1) c=n-1-c;
                 if(board[row][c]!=-1) next=board[row][c];
                 if(!visited[next]){
