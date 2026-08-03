@@ -4,9 +4,9 @@ public:
         int n=quiet.size();
         vector<vector<int>> adj(n);
         for(int i=0;i<richer.size();i++){
-           int u=richer[i][0];
-           int v=richer[i][1];
-           adj[u].push_back(v); 
+            int u=richer[i][0];
+            int v=richer[i][1];
+            adj[u].push_back(v);
         }
         vector<int> inDegree(n,0);
         for(auto i:adj){
@@ -17,17 +17,13 @@ public:
         queue<int> q;
         vector<int> ans(n);
         for(int i=0;i<n;i++){
+            if(inDegree[i]==0) q.push(i);
             ans[i]=i;
-        }
-        for(int i=0;i<n;i++){
-            if(inDegree[i]==0){
-                q.push(i);
-            }
         }
         while(!q.empty()){
             int node=q.front();
             q.pop();
-            for(auto i:adj[node]){
+            for(int i:adj[node]){
                 if(quiet[ans[node]]<quiet[ans[i]]){
                     ans[i]=ans[node];
                 }
