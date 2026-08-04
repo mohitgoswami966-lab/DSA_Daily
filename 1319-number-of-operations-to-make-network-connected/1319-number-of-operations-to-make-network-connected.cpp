@@ -17,7 +17,7 @@ private:
         if(rank[u]<rank[v]){
             parent[u]=v;
         }
-        else if(rank[u]>rank[v]){
+        else if(rank[v]<rank[u]){
             parent[v]=u;
         }
         else{
@@ -41,7 +41,7 @@ public:
         }
         int countC=0;
         for(int i=0;i<n;i++){
-            if(findParent(i,parent)==i) countC++;
+            if(parent[i]==i) countC++;
         }
         int ans=countC-1;
         if(count>=ans) return ans;
