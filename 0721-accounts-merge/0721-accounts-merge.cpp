@@ -1,6 +1,6 @@
 class Solution {
 private:
-    void makeSet(int n,vector<int> &parent,vector<int> &rank){
+    void makeSet(int n, vector<int> &parent,vector<int> &rank){
         for(int i=0;i<n;i++){
             parent[i]=i;
             rank[i]=0;
