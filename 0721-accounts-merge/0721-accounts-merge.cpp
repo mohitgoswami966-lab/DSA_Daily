@@ -1,6 +1,6 @@
 class Solution {
 private:
-    void makeSet(int n, vector<int> &parent,vector<int> &rank){
+    void makeSet(int n,vector<int> &parent,vector<int> &rank){
         for(int i=0;i<n;i++){
             parent[i]=i;
             rank[i]=0;
@@ -52,8 +52,8 @@ public:
         vector<vector<string>> result;
         for(int i=0;i<n;i++){
             if(mergeMail[i].size()==0) continue;
-            sort(mergeMail[i].begin(),mergeMail[i].end());
             vector<string> temp;
+            sort(mergeMail[i].begin(),mergeMail[i].end());
             temp.push_back(accounts[i][0]);
             for(auto j:mergeMail[i]){
                 temp.push_back(j);
