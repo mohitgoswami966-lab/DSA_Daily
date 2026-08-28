@@ -2,27 +2,25 @@ class Solution {
 public:
     int maxProfit(int k, vector<int>& prices) {
         int n=prices.size();
-        vector<vector<int>> curr(2,vector<int>(k+1,0));
-        vector<vector<int>> next(2,vector<int>(k+1,0));
+        vector<int> curr(2*k+1,0);
+        vector<int> next(2*k+1,0);
         for(int index=n-1;index>=0;index--){
-            for(int buy=0;buy<=1;buy++){
-                for(int limit=1;limit<=k;limit++){
-                    int profit=0;
-                    if(buy){
-                        int buyKaro=-prices[index]+next[0][limit];
-                        int skipKaro=0+next[1][limit];
-                        profit=max(skipKaro,buyKaro);
-                    }
-                    else{
-                        int sellKaro=prices[index]+next[1][limit-1];
-                        int skipKaro=0+next[0][limit];
-                        profit=max(skipKaro,sellKaro);
-                    }
-                    curr[buy][limit]=profit;
+            for(int operation=0;operation<2*k;operation++){
+                int profit=0;
+                if(operation%2==0){
+                    int buyKaro=-prices[index]+next[operation+1];
+                    int skipKaro=0+next[operation];
+                    profit=max(skipKaro,buyKaro);
                 }
+                else{
+                    int sellKaro=prices[index]+next[operation+1];
+                    int skipKaro=0+next[operation];
+                    profit=max(skipKaro,sellKaro);
+                }
+                curr[operation]=profit;
             }
             next=curr;
         }
-        return next[1][k];
+        return next[0];
     }
 };
