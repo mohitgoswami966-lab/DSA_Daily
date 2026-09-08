@@ -2,12 +2,10 @@ class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
         vector<int> ans;
-        int r=matrix.size();
-        int c=matrix[0].size();
         int srow=0;
-        int erow=r-1;
+        int erow=matrix.size()-1;
         int scol=0;
-        int ecol=c-1;
+        int ecol=matrix[0].size()-1;
         while(srow<=erow && scol<=ecol){
             for(int i=scol;i<=ecol;i++){
                 ans.push_back(matrix[srow][i]);
