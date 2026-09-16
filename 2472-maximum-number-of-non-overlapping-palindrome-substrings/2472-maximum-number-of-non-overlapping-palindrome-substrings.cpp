@@ -15,14 +15,12 @@ public:
         int n = s.size();
         int cnt = 0;
         for (int i = 0; i < n; i++) {
-            for (int j = i; j < n; j++) {
+            for (int j = i + k - 1; j < n && j - i + 1 <= k + 1; j++){
                 if (palindrome(i, j, s) && j - i + 1 >= k) {
                     cnt++;
                     i = j;
                     break;
                 }
-                if (j - i + 1 > k)
-                    break;
             }
         }
 
