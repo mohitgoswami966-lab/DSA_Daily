@@ -16,7 +16,7 @@ public:
         int cnt = 0;
         for (int i = 0; i < n; i++) {
             for (int j = i + k - 1; j < n && j - i + 1 <= k + 1; j++){
-                if (palindrome(i, j, s) && j - i + 1 >= k) {
+                if (palindrome(i, j, s) ) {
                     cnt++;
                     i = j;
                     break;
