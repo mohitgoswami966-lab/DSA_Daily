@@ -10,7 +10,10 @@ public:
                 sum+=b;
                 a=a/10;
             }
-            if(sum==i) ans=min(ans,i);
+            if(sum==i){
+                ans=i;
+                break;
+            }
         }
         if(ans==INT_MAX) return -1;
         return ans;
