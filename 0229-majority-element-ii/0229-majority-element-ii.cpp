@@ -2,38 +2,39 @@ class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
         vector<int> ans;
-        int firstE=0;
+        int n=nums.size();
         int firstC=0;
-        int SecondE=0;
-        int SecondC=0;
+        int firstE=0;
+        int secondE=0;
+        int secondC=0;
         for(int i=0;i<nums.size();i++){
-            if(firstE==nums[i]) firstC++;
-            else if(SecondE==nums[i]) SecondC++;
+            if(nums[i]==firstE) firstC++;
+            else if(nums[i]==secondE) secondC++;
             else if(firstC==0){
                 firstE=nums[i];
                 firstC=1;
             }
-            else if(SecondC==0){
-                SecondE=nums[i];
-                SecondC=1;
+            else if(secondC==0){
+                secondE=nums[i];
+                secondC=1;
             }
             else{
                 firstC--;
-                SecondC--;
+                secondC--;
             }
         }
         firstC=0;
-        SecondC=0;
+        secondC=0;
         for(int i=0;i<nums.size();i++){
-            if(firstE==nums[i]) firstC++;
-            else if(SecondE==nums[i]) SecondC++;
+            if(nums[i]==firstE) firstC++;
+            else if(nums[i]==secondE) secondC++;
         }
-        int a=nums.size()/3;
+        int a=n/3;
         if(firstC>a){
             ans.push_back(firstE);
         }
-        if(firstE!=SecondE && SecondC>a){
-            ans.push_back(SecondE);
+        if(secondC>a && firstE!=secondE){
+            ans.push_back(secondE);
         }
         return ans;
     }
