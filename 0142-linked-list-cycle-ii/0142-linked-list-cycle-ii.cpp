@@ -14,7 +14,7 @@ private:
             slow=slow->next;
             fast=fast->next;
         }
-        return slow;
+        return fast;
     }
 public:
     ListNode *detectCycle(ListNode *head) {
