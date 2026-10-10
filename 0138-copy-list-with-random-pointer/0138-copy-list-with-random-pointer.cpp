@@ -20,7 +20,7 @@ public:
         if(head==NULL) return NULL;
         Node* temp=head;
         while(temp){
-            Node* copy=new Node(temp->val);
+            Node* copy= new Node(temp->val);
             copy->next=temp->next;
             temp->next=copy;
             temp=copy->next;
@@ -43,7 +43,7 @@ public:
                 copyTail->next=temp->next;
                 copyTail=copyTail->next;
             }
-        } 
+        }
         return copyHead;
     }
 };
