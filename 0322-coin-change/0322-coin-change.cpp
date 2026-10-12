@@ -1,6 +1,6 @@
 class Solution {
-private:
-    int solve(vector<int> &coins,int amount){
+public:
+    int coinChange(vector<int>& coins, int amount) {
         vector<int> dp(amount+1,INT_MAX);
         dp[0]=0;
         for(int i=1;i<=amount;i++){
@@ -12,9 +12,5 @@ private:
         }
         if(dp[amount]==INT_MAX) return -1;
         return dp[amount];
-    }
-public:
-    int coinChange(vector<int>& coins, int amount) {
-        return solve(coins,amount);
     }
 };
