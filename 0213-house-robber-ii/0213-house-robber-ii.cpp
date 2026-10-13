@@ -1,11 +1,11 @@
 class Solution {
 private:
-    int solve(vector<int>& nums) {
-        int n=nums.size();
-        int prev1=nums[0];
+    int solve(vector<int> num){
+        int n=num.size();
         int prev2=0;
+        int prev1=num[0];
         for(int i=1;i<n;i++){
-            int incl=prev2 +nums[i];
+            int incl=prev2+num[i];
             int excl=prev1+0;
             int ans=max(incl,excl);
             prev2=prev1;
@@ -16,9 +16,7 @@ private:
 public:
     int rob(vector<int>& nums) {
         int n=nums.size();
-        if(n==1){
-            return nums[0];
-        }
+        if(n==1) return nums[0];
         vector<int> first,second;
         for(int i=0;i<n;i++){
             if(i!=n-1){
