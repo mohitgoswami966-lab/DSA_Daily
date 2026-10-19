@@ -8,9 +8,9 @@ public:
             if(nums[i]<0){
                 swap(cmin,cmax);
             }
-            cmin=min(nums[i],cmin*nums[i]);
-            cmax=max(nums[i],cmax*nums[i]);
-            ans=max(ans,cmax);
+            cmin=min(nums[i],nums[i]*cmin);
+            cmax=max(nums[i],nums[i]*cmax);
+            ans=max(cmax,ans);
         }
         return ans;
     }
