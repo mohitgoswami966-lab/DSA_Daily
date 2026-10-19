@@ -8,8 +8,8 @@ public:
         }
         if(i>=0){
             int j=n-1;
-            while(nums[j]<=nums[i]) j--;
-            swap(nums[i],nums[j]);
+            while(j>=0 && nums[j]<=nums[i]) j--;
+            swap(nums[j],nums[i]);
         }
         reverse(nums.begin()+i+1,nums.end());
     }
