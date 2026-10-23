@@ -14,10 +14,10 @@ public:
         }
         int ans;
         if(s.empty()){
-            ans=index-(-1);
+            ans = index-(-1);
         }
         else{
-            ans=index-s.top().second; 
+            ans = index-s.top().second;
         }
         s.push({price,index});
         return ans;
