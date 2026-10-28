@@ -12,11 +12,10 @@
 class Solution {
 public:
     TreeNode* searchBST(TreeNode* root, int val) {
-        TreeNode* temp=root;
-        while(temp){
-            if(temp->val==val) return temp;
-            else if(temp->val<val) temp=temp->right;
-            else temp=temp->left;
+        while(root){
+            if(root->val==val) return root;
+            else if(root->val>val) root=root->left;
+            else root=root->right;
         }
         return NULL;
     }
