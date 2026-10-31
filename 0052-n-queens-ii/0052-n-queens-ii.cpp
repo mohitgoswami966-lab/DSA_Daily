@@ -6,16 +6,16 @@ private:
             return;
         }
         for(int row=0;row<n;row++){
-            if(leftRow[row]==0 && leftDiagonal[row+col]==0 && rightDiagonal[(n-1)+(row-col)]==0){
-                board[col]='Q';
+            if(leftRow[row]==0 && leftDiagonal[row+col]==0 && rightDiagonal[(n-1)+(col-row)]==0){
+                board[row][col]='Q';
                 leftRow[row]=1;
                 leftDiagonal[row+col]=1;
-                rightDiagonal[(n-1)+(row-col)]=1;
+                rightDiagonal[(n-1)+(col-row)]=1;
                 solve(col+1,n,board,ans,leftRow,leftDiagonal,rightDiagonal);
-                board[col]='.';
+                board[row][col]='.';
                 leftRow[row]=0;
                 leftDiagonal[row+col]=0;
-                rightDiagonal[(n-1)+(row-col)]=0;
+                rightDiagonal[(n-1)+(col-row)]=0;
             }
         }
     }
