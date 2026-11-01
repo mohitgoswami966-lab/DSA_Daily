@@ -22,6 +22,6 @@ private:
 public:
     int kthSmallest(TreeNode* root, int k) {
         int i=0;
-        return solve(root,k,i);;
+        return solve(root,k,i);
     }
 };
