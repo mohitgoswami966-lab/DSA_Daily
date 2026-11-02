@@ -12,34 +12,29 @@
 class Solution {
 private:
     TreeNode* maxVal(TreeNode* root){
-        TreeNode* temp=root;
-        while(temp->right!=NULL){
-            temp=temp->right;
+        while(root->right){
+            root=root->right;
         }
-        return temp;
+        return root;
     }
 public:
     TreeNode* deleteNode(TreeNode* root, int key) {
-        if(root==NULL) return NULL;
         while(root){
             if(root->val==key){
                 if(root->left==NULL && root->right==NULL){
                     delete root;
                     return NULL;
                 }
-                
                 if(root->left!=NULL && root->right==NULL){
                     TreeNode* temp=root->left;
                     delete root;
                     return temp;
                 }
-                
                 if(root->left==NULL && root->right!=NULL){
                     TreeNode* temp=root->right;
                     delete root;
                     return temp;
                 }
-                
                 if(root->left!=NULL && root->right!=NULL){
                     int maxi=maxVal(root->left)->val;
                     root->val=maxi;
