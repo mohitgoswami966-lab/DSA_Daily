@@ -13,7 +13,7 @@ class Solution {
 private:
     bool solve(TreeNode* root,long long maxi,long long mini){
         if(root==NULL) return true;
-        if(root->val<=mini || root->val>=maxi) return false;
+        if(root->val>=maxi || root->val<=mini) return false;
         return solve(root->left,root->val,mini) && solve(root->right,maxi,root->val);
     }
 public:
