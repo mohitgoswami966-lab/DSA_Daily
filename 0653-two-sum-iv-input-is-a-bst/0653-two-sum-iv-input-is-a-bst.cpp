@@ -11,11 +11,11 @@
  */
 class Solution {
 private:
-    void solve(TreeNode* root,vector<int> &inorder){
+    void solve(TreeNode* root,vector<int> &ans){
         TreeNode* curr=root;
         while(curr){
             if(curr->left==NULL){
-                inorder.push_back(curr->val);
+                ans.push_back(curr->val);
                 curr=curr->right;
             }
             else{
@@ -29,7 +29,7 @@ private:
                 }
                 else{
                     prev->right=NULL;
-                    inorder.push_back(curr->val);
+                    ans.push_back(curr->val);
                     curr=curr->right;
                 }
             }
@@ -39,12 +39,12 @@ public:
     bool findTarget(TreeNode* root, int k) {
         vector<int> inorder;
         solve(root,inorder);
-        int i=0;
-        int j=inorder.size()-1;
-        while(i<j){
-            if(inorder[i]+inorder[j]==k) return true;
-            else if(inorder[i]+inorder[j]>k) j--;
-            else i++;
+        int s=0;
+        int e=inorder.size()-1;
+        while(s<e){
+            if(inorder[s]+inorder[e]==k) return true;
+            else if(inorder[s]+inorder[e]<k) s++;
+            else e--;
         }
         return false;
     }
