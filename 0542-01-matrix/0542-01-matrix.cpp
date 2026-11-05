@@ -12,9 +12,6 @@ public:
                     q.push({{i,j},0});
                     visited[i][j]=1;
                 }
-                else{
-                    visited[i][j]=0;
-                }
             }
         }
         int aRow[]={1,0,-1,0};
