@@ -1,10 +1,10 @@
 class Solution {
 private:
-    void dfs(int node,vector<vector<int>> &adj,vector<bool> &visited){
+    void solve(int node,vector<vector<int>> &adj,vector<bool> &visited){
         visited[node]=true;
-        for(auto i:adj[node]){
+        for(int i:adj[node]){
             if(!visited[i]){
-                dfs(i,adj,visited);
+                solve(i,adj,visited);
             }
         }
     }
@@ -19,12 +19,12 @@ public:
                 }
             }
         }
-        int ans=0;
         vector<bool> visited(n,false);
+        int ans=0;
         for(int i=0;i<n;i++){
             if(!visited[i]){
                 ans++;
-                dfs(i,adj,visited);
+                solve(i,adj,visited);
             }
         }
         return ans;
