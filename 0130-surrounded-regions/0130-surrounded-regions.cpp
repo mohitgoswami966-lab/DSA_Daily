@@ -1,6 +1,6 @@
 class Solution {
 private:
-    void sol(int row,int col,int n,int m,vector<vector<int>> &visited,int aRow[],int aCol[],vector<vector<char>> board){
+    void sol(int row,int col,int n,int m,vector<vector<int>> &visited,int aRow[],int aCol[],vector<vector<char>> &board){
         visited[row][col]=1;
         for(int i=0;i<4;i++){
             int nrow=row+aRow[i];
