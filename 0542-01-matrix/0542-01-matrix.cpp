@@ -17,7 +17,7 @@ public:
                 }
             }
         }
-        int aRow[]={-1,0,1,0};
+        int aRow[]={1,0,-1,0};
         int aCol[]={0,1,0,-1};
         while(!q.empty()){
             int r=q.front().first.first;
@@ -28,7 +28,7 @@ public:
             for(int i=0;i<4;i++){
                 int nrow=r+aRow[i];
                 int ncol=c+aCol[i];
-                if((nrow>=0 && nrow<n)&&(ncol>=0 && ncol<m)&& !visited[nrow][ncol]){
+                if((nrow>=0 && nrow<n) && (ncol>=0 && ncol<m) && !visited[nrow][ncol]){
                     q.push({{nrow,ncol},d+1});
                     visited[nrow][ncol]=1;
                 }
