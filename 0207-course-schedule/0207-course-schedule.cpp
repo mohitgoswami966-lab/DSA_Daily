@@ -14,20 +14,22 @@ public:
                 inDegree[j]++;
             }
         }
-        vector<int> topo;
         queue<int> q;
-        for(int i=0;i<numCourses;i++){
+        vector<int> topo;
+        for(int i=0;i<n;i++){
             if(inDegree[i]==0){
                 q.push(i);
             }
         }
         while(!q.empty()){
-            int Front=q.front();
+            int front=q.front();
             q.pop();
-            topo.push_back(Front);
-            for(auto i:adj[Front]){
+            topo.push_back(front);
+            for(int i:adj[front]){
                 inDegree[i]--;
-                if(inDegree[i]==0) q.push(i);
+                if(inDegree[i]==0){
+                    q.push(i);
+                }
             }
         }
         if(topo.size()==numCourses) return true;
