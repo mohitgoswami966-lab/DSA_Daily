@@ -16,7 +16,7 @@ public:
         }
         queue<int> q;
         vector<int> topo;
-        for(int i=0;i<n;i++){
+        for(int i=0;i<numCourses;i++){
             if(inDegree[i]==0){
                 q.push(i);
             }
