@@ -8,21 +8,21 @@ public:
             int w=flights[i][2];
             adj[u].push_back({v,w});
         }
-        vector<int> dist(n,INT_MAX);
         queue<pair<int,pair<int,int>>> q;
         q.push({0,{src,0}});
+        vector<int> dist(n,INT_MAX);
         while(!q.empty()){
-            int stops=q.front().first;
-            int node=q.front().second.first;
+            int stop=q.front().first;
+            int n=q.front().second.first;
             int d=q.front().second.second;
             q.pop();
-            if(stops>k) continue;
-            for(auto i:adj[node]){
-                int a=i.first;
-                int dt=i.second;
-                if(d+dt<dist[a] && stops<=k){
-                    dist[a]=d+dt;
-                    q.push({stops+1,{a,d+dt}});
+            if(stop>k) continue;
+            for(auto i:adj[n]){
+                int node=i.first;
+                int wt=i.second;
+                if(d+wt<dist[node] && stop<=k){
+                    dist[node]=d+wt;
+                    q.push({stop+1,{node,d+wt}});
                 }
             }
         }
