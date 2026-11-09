@@ -12,31 +12,29 @@ public:
         int city=-1;
         int minCount=INT_MAX;
         for(int src=0;src<n;src++){
-            vector<int> dist(n,INT_MAX);
             priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
             pq.push({0,src});
+            vector<int> dist(n,INT_MAX);
             dist[src]=0;
             while(!pq.empty()){
                 int d=pq.top().first;
                 int node=pq.top().second;
                 pq.pop();
                 for(auto i:adj[node]){
-                    int adjn=i.first;
+                    int n=i.first;
                     int wt=i.second;
-                    if(d+wt<dist[adjn]){
-                        dist[adjn]=d+wt;
-                        pq.push({d+wt,adjn});
+                    if(d+wt<dist[n]){
+                        dist[n]=d+wt;
+                        pq.push({dist[n],n});
                     }
                 }
             }
-            int cnt=0;
+            int count=0;
             for(int i=0;i<n;i++){
-                if(dist[i]<=distanceThreshold){
-                    cnt++;
-                }
+                if(dist[i]<=distanceThreshold) count++;
             }
-            if(cnt<=minCount){
-                minCount=cnt;
+            if(count<=minCount){
+                minCount=count;
                 city=src;
             }
         }
