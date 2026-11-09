@@ -17,11 +17,11 @@ public:
             int node=pq.top().second;
             pq.pop();
             for(auto i:adj[node]){
-                int adjn=i.first;
+                int n=i.first;
                 int wt=i.second;
-                if(d+wt<dist[adjn]){
-                    dist[adjn]=d+wt;
-                    pq.push({d+wt,adjn});
+                if(d+wt<dist[n]){
+                    dist[n]=d+wt;
+                    pq.push({dist[n],n});
                 }
             }
         }
