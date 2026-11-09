@@ -15,22 +15,22 @@ public:
         pq.push({0,0});
         dist[0]=0;
         ways[0]=1;
-        int mod=(int)(1e9 +7);
+        int mod=(int)1e9+7;
         while(!pq.empty()){
             long long d=pq.top().first;
             int node=pq.top().second;
             pq.pop();
             if(d>dist[node]) continue;
             for(auto i:adj[node]){
-                int adjn=i.first;
+                int an=i.first;
                 int wt=i.second;
-                if(d+wt<dist[adjn]){
-                    dist[adjn]=d+wt;
-                    pq.push({d+wt,adjn});
-                    ways[adjn]=ways[node];
+                if(d+wt<dist[an]){
+                    dist[an]=d+wt;
+                    pq.push({dist[an],an});
+                    ways[an]=ways[node];
                 }
-                else if(d+wt==dist[adjn]){
-                    ways[adjn]=(ways[adjn]+ways[node])%mod;
+                else if(d+wt==dist[an]){
+                    ways[an]=(ways[an]+ways[node])%mod;
                 }
             }
         }
