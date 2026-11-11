@@ -29,8 +29,8 @@ public:
     int makeConnected(int n, vector<vector<int>>& connections) {
         vector<int> parent(n);
         vector<int> rank(n);
-        makeSet(n,parent,rank);
         int count=0;
+        makeSet(n,parent,rank);
         for(int i=0;i<connections.size();i++){
             int u=findParent(connections[i][0],parent);
             int v=findParent(connections[i][1],parent);
