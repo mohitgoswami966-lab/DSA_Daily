@@ -1,6 +1,6 @@
 class Solution {
 private:
-    void makeSet(int n,vector<int> &parent,vector<int> &rank){
+    void makeSet(int n,vector<int> &rank,vector<int> &parent){
         for(int i=0;i<n;i++){
             parent[i]=i;
             rank[i]=0;
@@ -30,14 +30,14 @@ public:
         int n=stones.size();
         int maxRow=0;
         int maxCol=0;
-        for(int i=0;i<n;i++){
+        for(int i=0;i<stones.size();i++){
             maxRow=max(maxRow,stones[i][0]);
             maxCol=max(maxCol,stones[i][1]);
         }
         vector<int> parent(maxRow+maxCol+2);
         vector<int> rank(maxRow+maxCol+2);
+        makeSet(maxRow+maxCol+2,rank,parent);
         unordered_map<int,int> stoneNode;
-        makeSet(maxRow+maxCol+2,parent,rank);
         for(int i=0;i<n;i++){
             int r=stones[i][0];
             int c=stones[i][1]+maxRow+1;
@@ -47,7 +47,9 @@ public:
         }
         int count=0;
         for(auto i:stoneNode){
-            if(findParent(i.first,parent)==i.first) count++;
+            if(findParent(i.first,parent)==i.first){
+                count++;
+            }
         }
         return n-count;
     }
