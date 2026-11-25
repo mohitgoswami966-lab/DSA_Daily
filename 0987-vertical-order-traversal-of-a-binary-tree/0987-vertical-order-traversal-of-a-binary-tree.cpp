@@ -15,13 +15,12 @@ public:
         map<int,map<int,multiset<int>>> nodes;
         queue<pair<TreeNode*,pair<int,int>>> q;
         q.push({root,{0,0}});
-        vector<vector<int>> result;
+        vector<vector<int>> ans;
         while(!q.empty()){
-            pair<TreeNode*,pair<int,int>> front=q.front();
+            TreeNode* frontNode=q.front().first;
+            int hd=q.front().second.first;
+            int lvl=q.front().second.second;
             q.pop();
-            TreeNode* frontNode=front.first;
-            int hd=front.second.first;
-            int lvl=front.second.second;
             nodes[hd][lvl].insert(frontNode->val);
             if(frontNode->left){
                 q.push({frontNode->left,{hd-1,lvl+1}});
@@ -37,8 +36,8 @@ public:
                     col.push_back(k);
                 }
             }
-            result.push_back(col);
+            ans.push_back(col);
         }
-        return result;
+        return ans;
     }
 };
