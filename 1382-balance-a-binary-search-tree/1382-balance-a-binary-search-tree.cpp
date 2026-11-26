@@ -39,8 +39,8 @@ private:
         if(s>e) return NULL;
         int mid=s+(e-s)/2;
         TreeNode* root=new TreeNode(inorder[mid]);
-        root->right=findAns(inorder,mid+1,e);
         root->left=findAns(inorder,s,mid-1);
+        root->right=findAns(inorder,mid+1,e);
         return root;
     }
 public:
