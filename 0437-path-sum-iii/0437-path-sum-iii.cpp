@@ -10,24 +10,25 @@
  * };
  */
 class Solution {
-public:
-    void solve(TreeNode* root,int targetSum,int & count,vector<int> &paths){
+private:
+    void solve(TreeNode* root,vector<int> &paths,int targetSum,int &count){
         if(root==NULL) return;
         paths.push_back(root->val);
-        solve(root->left,targetSum,count,paths);
-        solve(root->right,targetSum,count,paths);
+        solve(root->left,paths,targetSum,count);
+        solve(root->right,paths,targetSum,count);
         int n=paths.size();
         long long sum=0;
-        for(long long i=n-1;i>=0;i--){
+        for(int i=n-1;i>=0;i--){
             sum+=paths[i];
             if(sum==targetSum) count++;
         }
         paths.pop_back();
     }
+public:
     int pathSum(TreeNode* root, int targetSum) {
         vector<int> paths;
         int count=0;
-        solve(root,targetSum,count,paths);
+        solve(root,paths,targetSum,count);
         return count;
     }
 };
