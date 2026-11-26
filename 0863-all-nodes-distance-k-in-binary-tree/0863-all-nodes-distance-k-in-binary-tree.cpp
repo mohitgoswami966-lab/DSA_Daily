@@ -9,7 +9,7 @@
  */
 class Solution {
 private:
-    void createMapping(TreeNode* root,map<TreeNode*,TreeNode*> &nodeToParent){
+    void createMapping(map<TreeNode*,TreeNode*> &nodeToParent,TreeNode* root){
         queue<TreeNode*> q;
         q.push(root);
         nodeToParent[root]=NULL;
@@ -26,16 +26,15 @@ private:
             }
         }
     }
-
     vector<int> solve(TreeNode* root,map<TreeNode*,TreeNode*> &nodeToParent,int k){
         vector<int> ans;
+        map<TreeNode*,bool> visited;
         queue<TreeNode*> q;
         q.push(root);
-        map<TreeNode*,bool> visited;
+        int dist=0;
         visited[root]=true;
-        int distance=0;
         while(!q.empty()){
-            if(distance++==k) break;
+            if(dist++ ==k) break;
             int n=q.size();
             for(int i=0;i<n;i++){
                 TreeNode* frontNode=q.front();
@@ -64,7 +63,7 @@ private:
 public:
     vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
         map<TreeNode*,TreeNode*> nodeToParent;
-        createMapping(root,nodeToParent);
+        createMapping(nodeToParent,root);
         vector<int> ans=solve(target,nodeToParent,k);
         return ans;
     }
