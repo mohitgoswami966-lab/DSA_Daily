@@ -39,7 +39,7 @@ public:
                     int maxi=maxVal(root->left)->val;
                     root->val=maxi;
                     root->left=deleteNode(root->left,maxi);
-                    return root;
+                    return root;;
                 }
             }
             else if(root->val>key){
