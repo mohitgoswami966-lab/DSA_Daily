@@ -14,7 +14,9 @@ private:
     int solve(TreeNode* root,int k,int &i){
         if(root==NULL) return -1;
         int left=solve(root->left,k,i);
-        if(left!=-1) return left;
+        if(left!=-1){
+            return left;
+        }
         i++;
         if(i==k) return root->val;
         return solve(root->right,k,i);
