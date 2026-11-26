@@ -10,8 +10,8 @@
  * };
  */
 class Solution {
-public:
-    TreeNode* createMapping(TreeNode* root,int start,map<TreeNode*,TreeNode*> &nodeToParent){
+private:
+    TreeNode* createMapping(map<TreeNode*,TreeNode*> &nodeToParent,TreeNode* root,int start){
         TreeNode* res=NULL;
         if(root==NULL) return res;
         queue<TreeNode*> q;
@@ -22,12 +22,12 @@ public:
             q.pop();
             if(frontNode->val==start) res=frontNode;
             if(frontNode->left){
-                nodeToParent[frontNode->left]=frontNode;
                 q.push(frontNode->left);
+                nodeToParent[frontNode->left]=frontNode;
             }
             if(frontNode->right){
-                nodeToParent[frontNode->right]=frontNode;
                 q.push(frontNode->right);
+                nodeToParent[frontNode->right]=frontNode;
             }
         }
         return res;
@@ -45,28 +45,29 @@ public:
                 TreeNode* frontNode=q.front();
                 q.pop();
                 if(frontNode->left && !visited[frontNode->left]){
-                    q.push(frontNode->left);
-                    visited[frontNode->left]=true;
                     flag=true;
+                    visited[frontNode->left]=true;
+                    q.push(frontNode->left);
                 }
                 if(frontNode->right && !visited[frontNode->right]){
-                    q.push(frontNode->right);
-                    visited[frontNode->right]=true;
                     flag=true;
+                    visited[frontNode->right]=true;
+                    q.push(frontNode->right);
                 }
                 if(nodeToParent[frontNode] && !visited[nodeToParent[frontNode]]){
-                    q.push(nodeToParent[frontNode]);
-                    visited[nodeToParent[frontNode]]=true;
                     flag=true;
+                    visited[nodeToParent[frontNode]]=true;
+                    q.push(nodeToParent[frontNode]);
                 }
             }
             if(flag) count++;
         }
         return count;
     }
+public:
     int amountOfTime(TreeNode* root, int start) {
         map<TreeNode*,TreeNode*> nodeToParent;
-        TreeNode* targetNode=createMapping(root,start,nodeToParent);
+        TreeNode* targetNode=createMapping(nodeToParent,root,start);
         int ans=solve(targetNode,nodeToParent);
         return ans;
     }
